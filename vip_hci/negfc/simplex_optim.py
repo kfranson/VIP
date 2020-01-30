@@ -308,6 +308,8 @@ def firstguess(cube, angs, psfn, ncomp, plsc, planets_xy_coord, fwhm=4,
     planets_xy_coord = np.array(planets_xy_coord)
     n_planet = planets_xy_coord.shape[0]
     center_xy_coord = np.array(frame_center(cube[0]))
+    # switch order of x, y center coords as frame_center returns in order y, x, while this function assumes order x, y
+    center_xy_coord[0], center_xy_coord[1] = center_xy_coord[1], center_xy_coord[0]
 
     r_0 = np.zeros(n_planet)
     theta_0 = np.zeros_like(r_0)

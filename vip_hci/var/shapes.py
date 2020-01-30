@@ -501,7 +501,7 @@ def get_annulus_segments(data, inner_radius, width, nsegm=1, theta_init=0,
     azimuth_coverage = np.deg2rad(int(np.ceil(360 / nsegm)))
     twopi = 2 * np.pi
 
-    xx, yy = np.mgrid[:array.shape[0], :array.shape[1]]
+    yy, xx = np.mgrid[:array.shape[0], :array.shape[1]]
     rad = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2)
     phi = np.arctan2(yy - cy, xx - cx)
     phirot = phi % twopi
@@ -692,9 +692,9 @@ def prepare_matrix(array, scaling=None, mask_center_px=None, mode='fullfr',
         if inner_radius is None or outer_radius is None:
             raise ValueError('`inner_radius` and `outer_radius` must be defined'
                              ' in annular mode')
-        fr_size = array.shape[1]
+        # fr_size = array.shape[1]
         annulus_width = int(np.round(outer_radius - inner_radius))
-        ind = get_annulus_segments((fr_size, fr_size), inner_radius,
+        ind = get_annulus_segments((array.shape[1], array.shape[2]), inner_radius,
                                    annulus_width, nsegm=1)[0]
         yy, xx = ind
         matrix = array[:, yy, xx]
